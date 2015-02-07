@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="com.microsoft.sqljdbc4.DRIVER_JAVAEE6/4.0.2206">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/poi-3.11-20141221.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/geocoder-java-0.16.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-nop-1.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-simple-1.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/s2-geometry-java.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.6/jaxen-1.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.2" timestamp="2013-01-13T07:31:53.956">
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/JaxenException.java">
+<violation beginline="74" endline="77" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen" class="JaxenException" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/dom/DocumentNavigator.java">
+<violation beginline="382" endline="383" begincolumn="89" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.jaxen.dom" class="DocumentNavigator" method="getNamespaceAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="474" endline="475" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.dom" class="DocumentNavigator" method="getElementNamespaceUri" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="513" endline="514" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.dom" class="DocumentNavigator" method="getElementQName" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="535" endline="536" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.dom" class="DocumentNavigator" method="getAttributeNamespaceUri" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="575" endline="576" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.dom" class="DocumentNavigator" method="getAttributeQName" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/dom4j/DocumentNavigator.java">
+<violation beginline="242" endline="244" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.dom4j" class="DocumentNavigator" method="getChildAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/expr/DefaultStep.java">
+<violation beginline="157" endline="161" begincolumn="21" endcolumn="21" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.expr" class="DefaultStep" method="evaluate" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/javabean/DocumentNavigator.java">
+<violation beginline="228" endline="231" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.javabean" class="DocumentNavigator" method="getChildAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="232" endline="235" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.javabean" class="DocumentNavigator" method="getChildAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/jdom/DocumentNavigator.java">
+<violation beginline="256" endline="257" begincolumn="17" endcolumn="78" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.jdom" class="DocumentNavigator" method="getNamespaceAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="278" endline="279" begincolumn="21" endcolumn="90" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.jdom" class="DocumentNavigator" method="getNamespaceAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="309" endline="312" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.jdom" class="DocumentNavigator" method="getParentAxisIterator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/pattern/LocationPathPattern.java">
+<violation beginline="113" endline="116" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.jaxen.pattern" class="LocationPathPattern" method="simplify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/saxpath/SAXPathException.java">
+<violation beginline="74" endline="77" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.saxpath" class="SAXPathException" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/saxpath/helpers/XPathReaderFactory.java">
+<violation beginline="98" endline="101" begincolumn="9" endcolumn="9" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.jaxen.saxpath.helpers" class="XPathReaderFactory" method="createReader" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/xom/DocumentNavigator.java">
+<violation beginline="279" endline="281" begincolumn="12" endcolumn="5" rule="UselessOverridingMethod" ruleset="Basic Rules" package="org.jaxen.xom" class="DocumentNavigator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+<violation beginline="283" endline="285" begincolumn="12" endcolumn="5" rule="UselessOverridingMethod" ruleset="Basic Rules" package="org.jaxen.xom" class="DocumentNavigator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+<violation beginline="303" endline="304" begincolumn="45" endcolumn="9" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.jaxen.xom" class="DocumentNavigator" method="translateNamespacePrefixToUri" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+</file>
+</pmd>
