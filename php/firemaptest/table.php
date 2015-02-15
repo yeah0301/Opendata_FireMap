@@ -44,9 +44,9 @@ hr{
         <thead>
             <tr>
                 <th>#</th>
-                <th>name</th>
-                <th>lat</th>
-                <th>lng</th>
+                <th>名稱</th>
+                <th>緯度</th>
+                <th>經度</th>
             </tr>
         </thead>
             <tbody id="test"></tbody>
