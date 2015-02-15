@@ -15,6 +15,7 @@ public class Village {
 	ArrayList<Double> lats;
 	ArrayList<Double> lngs;
 	int id;
+	String json_polygon;
 	
 	
 	public Village(String name,String section,String area,LinkedList<HashMap<String, BigDecimal>> poly){
@@ -24,14 +25,19 @@ public class Village {
 		this.polygon = poly;
 	}
 	
-	public Village(int id,String name,String section,ArrayList<Double> lats,ArrayList<Double> lngs){
+	public Village(int id,String name,String section,ArrayList<Double> lats,ArrayList<Double> lngs,String json_polygon){
 		this.id=id;
 		this.name = name;
 		this.section = section;
 		this.lats=lats;
 		this.lngs=lngs;
+		this.json_polygon=json_polygon;
 	}
 	
+	
+	public String getJsonPolygon(){
+		return this.json_polygon;
+	}
 	
 	public int getID(){
 		return this.id;

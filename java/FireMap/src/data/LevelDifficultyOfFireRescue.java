@@ -20,6 +20,7 @@ public class LevelDifficultyOfFireRescue {
 	private boolean hasAisle;
 	private BigDecimal lat;
 	private BigDecimal lng;
+	private int id;
 	
 	/**
 	 * initial
@@ -45,6 +46,22 @@ public class LevelDifficultyOfFireRescue {
 		this.lng=lng;
 
 	}
+	
+	public LevelDifficultyOfFireRescue(int id,int level, int item, String sec,
+			String addr, String name, boolean hasAisle,BigDecimal lat,BigDecimal lng) {
+		
+		this.id=id;
+		this.level = level;
+		this.item = item;
+		this.section = sec;
+		this.address = addr;
+		this.name = name;
+		this.hasAisle = hasAisle;
+		this.lat=lat;
+		this.lng=lng;
+
+	}
+	
 
 	public int getLevel() {
 		return this.level;

@@ -16,10 +16,35 @@ public class NarrowRoadway {
 	private BigDecimal lat;
 	private BigDecimal lng;
 	private String polygon;
+	private String level;
+	private int id;
 	
 	
 	
-	public NarrowRoadway(String sec,String team,String roadway,float width,BigDecimal lat,BigDecimal lng){
+	public NarrowRoadway(String sec,String team,String roadway,float width,String level,BigDecimal lat,BigDecimal lng){
+		this.section=sec;
+		this.team=team;
+		this.roadway=roadway;
+		this.level = level;
+		this.width=width;
+		this.lat=lat;
+		this.lng=lng;
+	}
+	
+	public NarrowRoadway(String sec,String team,String roadway,float width,String level,BigDecimal lat,BigDecimal lng,String polygon){
+		this.section=sec;
+		this.team=team;
+		this.roadway=roadway;
+		this.width=width;
+		this.lat=lat;
+		this.lng=lng;
+		this.polygon=polygon;
+		this.level = level;
+	}
+	
+	
+	public NarrowRoadway(int id,String sec,String team,String roadway,float width,BigDecimal lat,BigDecimal lng){
+		this.id=id;
 		this.section=sec;
 		this.team=team;
 		this.roadway=roadway;
@@ -28,14 +53,12 @@ public class NarrowRoadway {
 		this.lng=lng;
 	}
 	
-	public NarrowRoadway(String sec,String team,String roadway,float width,BigDecimal lat,BigDecimal lng,String polygon){
-		this.section=sec;
-		this.team=team;
-		this.roadway=roadway;
-		this.width=width;
-		this.lat=lat;
-		this.lng=lng;
-		this.polygon=polygon;
+	public String getLevel(){
+		return this.level;
+	}
+	
+	public int getID(){
+		return this.id;
 	}
 	
 	public String getPolygon(){

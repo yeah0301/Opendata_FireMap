@@ -20,6 +20,7 @@ public class EmergencyHospital {
 	private String category;
 	private BigDecimal lat;
 	private BigDecimal lng;
+	private int id;
 	
 	
 	/**
@@ -48,8 +49,24 @@ public class EmergencyHospital {
 		this.category=category;
 		this.lat=lat;
 		this.lng=lng;
+	}
+	
+	
+	public EmergencyHospital(int id,String name,String addr_for_display
+			,String hospital_evaluation,String tech_hospital_evaluation,String category,BigDecimal lat,BigDecimal lng){
+		
+		this.id=id;
+		this.name=name;
+		this.address_for_display=addr_for_display;
+		this.hospital_evaluation=hospital_evaluation;
+		this.teaching_hospital_evaluation=tech_hospital_evaluation;
+		this.category=category;
+		this.lat=lat;
+		this.lng=lng;
 
 	}
+	
+
 	
 	/**
 	 * 
@@ -57,6 +74,11 @@ public class EmergencyHospital {
 	 */
 	public String getName(){
 		return this.name;
+	}
+	
+	
+	public int getID(){
+		return this.id;
 	}
 	
 	

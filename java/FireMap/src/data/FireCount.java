@@ -13,6 +13,7 @@ public class FireCount {
 	private String section;
 	private int count;
 	private Date date;
+	private int id;
 
 	
 	/**
@@ -23,6 +24,13 @@ public class FireCount {
 	 * @param date 發生火災月份
 	 */
 	public FireCount(String section, int count, Date date) {
+		this.section = section;
+		this.count = count;
+		this.date = date;
+	}
+	
+	public FireCount(int id,String section, int count, Date date) {
+		this.id=id;
 		this.section = section;
 		this.count = count;
 		this.date = date;

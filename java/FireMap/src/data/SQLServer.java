@@ -21,11 +21,10 @@ public class SQLServer {
 	PreparedStatement pst = null;
 
 	public SQLServer() {
-		connectionString = "jdbc:sqlserver://"+SQLServer_INFO.serverIP+";"
-				+ "database="+SQLServer_INFO.databaseName+";"
-				+ "user="+SQLServer_INFO.userID+";"
-				+ "password="+SQLServer_INFO.password+";"
-				+ "encrypt=true;"
+		connectionString = "jdbc:sqlserver://" + SQLServer_INFO.serverIP + ";"
+				+ "database=" + SQLServer_INFO.databaseName + ";" + "user="
+				+ SQLServer_INFO.userID + ";" + "password="
+				+ SQLServer_INFO.password + ";" + "encrypt=true;"
 				+ "hostNameInCertificate=*.database.windows.net;"
 				+ "loginTimeout=30";
 
@@ -49,7 +48,7 @@ public class SQLServer {
 		}
 
 	}
-	
+
 	public void create_FireDepartment() {
 
 		try {
@@ -68,8 +67,54 @@ public class SQLServer {
 		}
 	}
 	
+	public void create_mobile_record() {
+
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate("CREATE TABLE mobile_record ("
+					+"datetime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+					+"pics varchar(64) NOT NULL,"
+					+"x varchar(16) DEFAULT NULL,"
+					+"y varchar(16) DEFAULT NULL,"
+					+"worker varchar(64) DEFAULT NULL,"
+					+"eventid varchar(16) DEFAULT NULL,"
+					+"eventDesc varchar(255) DEFAULT NULL,"
+					+"PRIMARY KEY (datetime))");
+
+		} catch (SQLException e) {
+			System.out.println("CreateDB Exception :" + e.toString());
+		}
+	}
 	
-	
+	public void create_audio_record() {
+
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate("CREATE TABLE audio_record ("
+					+"datetime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+					+"worker varchar(64) NOT NULL,"
+					+"mp3_path varchar(64) NOT NULL,"
+					+"PRIMARY KEY (datetime,worker))");
+
+		} catch (SQLException e) {
+			System.out.println("CreateDB Exception :" + e.toString());
+		}
+	}
+
+	public void create_Hydrant() {
+
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate("CREATE TABLE Hydrant("
+					+ "    id   INT IDENTITY NOT NULL PRIMARY KEY"
+					+ "  , lat decimal(10,7) NOT NULL"
+					+ "  , lng decimal(10,7) NOT NULL)");
+
+		} catch (SQLException e) {
+			System.out.println("CreateDB Exception :" + e.toString());
+		}
+	}
+
 	public void create_ParkWaterStation() {
 
 		try {
@@ -80,27 +125,24 @@ public class SQLServer {
 					+ "  , name  nvarchar(50) NOT NULL "
 					+ "  , note  nvarchar(50) NOT NULL "
 					+ "  , address nvarchar(50) NOT NULL "
-					+ "  , lat decimal(10,7) "
-					+ "  , lng decimal(10,7) )" );
-				
+					+ "  , lat decimal(10,7) " + "  , lng decimal(10,7) )");
+
 		} catch (SQLException e) {
 			System.out.println("CreateDB Exception :" + e.toString());
 		}
 	}
-	
-	
-public void insert_ParkWaterStation(List<ParkWaterStation> list) {
-		
-		if(!hasTable("ParkWaterStation"))
+
+	public void insert_ParkWaterStation(List<ParkWaterStation> list) {
+
+		if (!hasTable("ParkWaterStation"))
 			create_ParkWaterStation();
 
 		try {
 			pst = connection
 					.prepareStatement("insert into ParkWaterStation(section,name,address,note,lat,lng)"
 							+ "VALUES (?,?,?,?,?,?)");
-			
-			
-			for(ParkWaterStation park:list){
+
+			for (ParkWaterStation park : list) {
 
 				pst.setString(1, park.getSection());
 				pst.setString(2, park.getLocation());
@@ -118,20 +160,42 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			// Close();
 		}
 	}
-	
-	
+
+	public void insert_Hydrant(List<Hydrant> list) {
+
+		if (!hasTable("Hydrant"))
+			create_Hydrant();
+
+		try {
+			pst = connection.prepareStatement("insert into Hydrant(lat,lng)"
+					+ "VALUES (?,?)");
+
+			for (Hydrant hydrant : list) {
+
+				pst.setBigDecimal(1, hydrant.getLat());
+				pst.setBigDecimal(2, hydrant.getLng());
+				pst.addBatch();
+			}
+			pst.executeBatch();
+
+		} catch (SQLException e) {
+			System.out.println("InsertDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+	}
+
 	public void insert_FireDepartment(List<FireDepartment> list) {
-		
-		if(!hasTable("FireDepartment"))
+
+		if (!hasTable("FireDepartment"))
 			create_FireDepartment();
 
 		try {
 			pst = connection
 					.prepareStatement("insert into FireDepartment(name,TWD67_X,TWD67_Y,lat,lng,address)"
 							+ "VALUES (?,?,?,?,?,?)");
-			
-			
-			for(FireDepartment department:list){
+
+			for (FireDepartment department : list) {
 
 				pst.setString(1, department.getName());
 				pst.setFloat(2, department.getTWD67_X());
@@ -149,8 +213,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			// Close();
 		}
 	}
-	
-	
+
 	public void create_IllegalConstruction() {
 
 		try {
@@ -160,8 +223,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 					+ "  , section  nvarchar(50) NOT NULL"
 					+ "  , address  nvarchar(50) NOT NULL "
 					+ "  , area  float NOT NULL "
-					+ "  , date datetime NOT NULL"
-					+ "  , lat decimal(10,7) "
+					+ "  , date datetime NOT NULL" + "  , lat decimal(10,7) "
 					+ "  , lng decimal(10,7) )");
 
 		} catch (SQLException e) {
@@ -170,10 +232,9 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 
 	}
 
-
 	public void insert_IllegalConstruction(List<IllegalConstruction> list) {
-		
-		if(!hasTable("IllegalConstruction"))
+
+		if (!hasTable("IllegalConstruction"))
 			create_IllegalConstruction();
 
 		try {
@@ -203,7 +264,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			// Close();
 		}
 	}
-	
+
 	public void create_NarrowRoadway() {
 
 		try {
@@ -213,18 +274,17 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 					+ "  , section  nvarchar(50) NOT NULL"
 					+ "  , team  nvarchar(50) NOT NULL "
 					+ "  , roadway  nvarchar(50) NOT NULL "
+					+ "  , level nvarchar(10)"
 					+ "  , width float NOT NULL"
 					+ "  , lat decimal(10,7) NOT NULL"
-					+ "  , lng decimal(10,7) NOT NULL"
-					+ "  , polygon text)");
+					+ "  , lng decimal(10,7) NOT NULL" + "  , polygon text)");
 
 		} catch (SQLException e) {
 			System.out.println("CreateDB Exception :" + e.toString());
 		}
 
 	}
-	
-	
+
 	public void create_Village() {
 
 		try {
@@ -233,8 +293,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 					+ "    id   INT IDENTITY NOT NULL PRIMARY KEY"
 					+ "  , name  nvarchar(50) NOT NULL"
 					+ "  , section  nvarchar(10) NOT NULL "
-					+ "  , area nvarchar(15) NOT NULL"
-					+ "  , polygon text"
+					+ "  , area nvarchar(15) NOT NULL" + "  , polygon text"
 					+ "  , json_polygon text)");
 
 		} catch (SQLException e) {
@@ -244,11 +303,58 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 	}
 	
 	
+	public void create_Result() {
+
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate("CREATE TABLE Result("
+					+ "    id   INT NOT NULL PRIMARY KEY"
+					+ "  , name  nvarchar(50) NOT NULL"
+					+ "  , section  nvarchar(10) NOT NULL "
+					+"   , score float"
+					+ "  , json_polygon text)");
+
+		} catch (SQLException e) {
+			System.out.println("CreateDB Exception :" + e.toString());
+		}
+
+	}
+	
+	
+	public void insert_Result(List<Result> list) {
+
+		if (!hasTable("Result"))
+			create_Result();
+		;
+
+		try {
+			pst = connection
+					.prepareStatement("insert into Result(id,name,section,score,json_polygon)"
+							+ "VALUES (?,?,?,?,?)");
+
+			for (Result r : list) {
+				pst.setInt(1, r.getID());
+				pst.setString(2, r.getName());
+				pst.setString(3, r.getSection());
+				pst.setFloat(4, r.getScore());
+				pst.setString(5, r.getJson_polygon());
+				pst.addBatch();
+			}
+			pst.executeBatch();
+
+		} catch (SQLException e) {
+			System.out.println("InsertDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+	}
+
 	public void insert_Village(List<Village> list) {
-		
-		if(!hasTable("Village"))
-			create_Village();;
-		
+
+		if (!hasTable("Village"))
+			create_Village();
+		;
+
 		try {
 			pst = connection
 					.prepareStatement("insert into Village(name,section,area,polygon,json_polygon)"
@@ -258,24 +364,25 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 				pst.setString(1, v.getName());
 				pst.setString(2, v.getSection());
 				pst.setString(3, v.getArea());
-				
+
 				String polygon = "";
 				String json = "[";
-				
-				int size=v.getPolygon().size();
-				
-				for(int i=0;i<size;i++){
-					HashMap map=v.getPolygon().get(i);
-					if(i==size-1){
-						polygon+=map.get("lat")+","+map.get("lng");
-						json+="{\"lat\":"+map.get("lat")+",\"lng\":"+map.get("lng")+"}]";
-					}
-					else{
-						polygon+=map.get("lat")+","+map.get("lng")+" ";
-						json+="{\"lat\":"+map.get("lat")+",\"lng\":"+map.get("lng")+"},";
+
+				int size = v.getPolygon().size();
+
+				for (int i = 0; i < size; i++) {
+					HashMap map = v.getPolygon().get(i);
+					if (i == size - 1) {
+						polygon += map.get("lat") + "," + map.get("lng");
+						json += "{\"lat\":" + map.get("lat") + ",\"lng\":"
+								+ map.get("lng") + "}]";
+					} else {
+						polygon += map.get("lat") + "," + map.get("lng") + " ";
+						json += "{\"lat\":" + map.get("lat") + ",\"lng\":"
+								+ map.get("lng") + "},";
 					}
 				}
-				
+
 				pst.setString(4, polygon);
 				pst.setString(5, json);
 				pst.addBatch();
@@ -288,17 +395,16 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			// Close();
 		}
 	}
-	
 
 	public void insert_NarrowRoadway(List<NarrowRoadway> list) {
-		
-		if(!hasTable("NarrowRoadway"))
+
+		if (!hasTable("NarrowRoadway"))
 			create_NarrowRoadway();
-		
+
 		try {
 			pst = connection
-					.prepareStatement("insert into NarrowRoadway(section,team,roadway,width,lat,lng,polygon)"
-							+ "VALUES (?,?,?,?,?,?,?)");
+					.prepareStatement("insert into NarrowRoadway(section,team,roadway,width,lat,lng,polygon,level)"
+							+ "VALUES (?,?,?,?,?,?,?,?)");
 
 			for (NarrowRoadway nr : list) {
 				pst.setString(1, nr.getSection());
@@ -308,6 +414,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 				pst.setBigDecimal(5, nr.getLat());
 				pst.setBigDecimal(6, nr.getLng());
 				pst.setString(7, nr.getPolygon());
+				pst.setString(8, nr.getLevel());
 				pst.addBatch();
 			}
 			pst.executeBatch();
@@ -328,8 +435,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 					+ "  , name  nvarchar(50) NOT NULL"
 					+ "  , address nvarchar(50) NOT NULL "
 					+ "  , checkResult  nvarchar(50) NOT NULL "
-					+ "  , date datetime NOT NULL"
-					+ "  , lat decimal(10,7) "
+					+ "  , date datetime NOT NULL" + "  , lat decimal(10,7) "
 					+ "  , lng decimal(10,7) )");
 
 		} catch (SQLException e) {
@@ -337,11 +443,10 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 		}
 
 	}
-	
 
 	public void insert_SeriousFailureLocation(List<SeriousFailureLocation> list) {
-		
-		if(!hasTable("SeriousFailureLocation"))
+
+		if (!hasTable("SeriousFailureLocation"))
 			create_SeriousFailureLocation();
 
 		try {
@@ -370,10 +475,6 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			// Close();
 		}
 	}
-	
-	
-
-	
 
 	public void create_LevelDifficultyOfFireRescue() {
 
@@ -381,13 +482,11 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 			statement = connection.createStatement();
 			statement.executeUpdate("CREATE TABLE LevelDifficultyOfFireRescue("
 					+ "    id  INT IDENTITY NOT NULL PRIMARY KEY"
-					+ "  , level INT NOT NULL" 
-					+ "  , item INT NOT NULL"
+					+ "  , level INT NOT NULL" + "  , item INT NOT NULL"
 					+ "  , section nvarchar(10) NOT NULL "
 					+ "  , address nvarchar(50) NOT NULL "
 					+ "  , name nvarchar(50) NOT NULL"
-					+ "  , hasAisle bit NOT NULL"
-					+ "  , lat decimal(10,7) "
+					+ "  , hasAisle bit NOT NULL" + "  , lat decimal(10,7) "
 					+ "  , lng decimal(10,7) )");
 
 		} catch (SQLException e) {
@@ -402,36 +501,36 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 		if (!hasTable("LevelDifficultyOfFireRescue"))
 			create_LevelDifficultyOfFireRescue();
 
-			try {
-				pst = connection
-						.prepareStatement("insert into LevelDifficultyOfFireRescue(level,item,section,address,name,hasAisle,lat,lng)"
-								+ "VALUES (?,?,?,?,?,?,?,?)");
+		try {
+			pst = connection
+					.prepareStatement("insert into LevelDifficultyOfFireRescue(level,item,section,address,name,hasAisle,lat,lng)"
+							+ "VALUES (?,?,?,?,?,?,?,?)");
 
-				for (LevelDifficultyOfFireRescue difficulty : list) {
+			for (LevelDifficultyOfFireRescue difficulty : list) {
 
-					pst.setInt(1, difficulty.getLevel());
-					pst.setInt(2, difficulty.getItem());
-					pst.setString(3, difficulty.getSection());
-					pst.setString(4, difficulty.getAddress());
-					pst.setString(5, difficulty.getName());
-			
-					if (difficulty.getHasAisle())
-						pst.setInt(6, 1);
-					else
-						pst.setInt(6, 0);
-					
-					pst.setBigDecimal(7, difficulty.getLat());
-					pst.setBigDecimal(8, difficulty.getLng());
-					pst.addBatch();
-				}
-				pst.executeBatch();
+				pst.setInt(1, difficulty.getLevel());
+				pst.setInt(2, difficulty.getItem());
+				pst.setString(3, difficulty.getSection());
+				pst.setString(4, difficulty.getAddress());
+				pst.setString(5, difficulty.getName());
 
-			} catch (SQLException e) {
-				System.out.println("InsertDB Exception :" + e.toString());
-			} finally {
-				// Close();
+				if (difficulty.getHasAisle())
+					pst.setInt(6, 1);
+				else
+					pst.setInt(6, 0);
+
+				pst.setBigDecimal(7, difficulty.getLat());
+				pst.setBigDecimal(8, difficulty.getLng());
+				pst.addBatch();
 			}
-		
+			pst.executeBatch();
+
+		} catch (SQLException e) {
+			System.out.println("InsertDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+
 	}
 
 	public void create_FireCount() {
@@ -456,30 +555,28 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 		if (!hasTable("FireCount"))
 			create_FireCount();
 
-		
+		try {
+			pst = connection
+					.prepareStatement("insert into FireCount(section,count,date)"
+							+ "VALUES (?,?,?)");
 
-			try {
-				pst = connection
-						.prepareStatement("insert into FireCount(section,count,date)"
-								+ "VALUES (?,?,?)");
+			for (FireCount fc : list) {
 
-				for (FireCount fc : list) {
+				java.sql.Date sqlDate = new java.sql.Date(fc.getDate()
+						.getTime());
 
-					java.sql.Date sqlDate = new java.sql.Date(fc.getDate()
-							.getTime());
-
-					pst.setString(1, fc.getSection());
-					pst.setInt(2, fc.getCount());
-					pst.setDate(3, sqlDate);
-					pst.addBatch();
-				}
-				pst.executeBatch();
-
-			} catch (SQLException e) {
-				System.out.println("InsertDB Exception :" + e.toString());
-			} finally {
-				// close();
+				pst.setString(1, fc.getSection());
+				pst.setInt(2, fc.getCount());
+				pst.setDate(3, sqlDate);
+				pst.addBatch();
 			}
+			pst.executeBatch();
+
+		} catch (SQLException e) {
+			System.out.println("InsertDB Exception :" + e.toString());
+		} finally {
+			// close();
+		}
 
 	}
 
@@ -532,7 +629,7 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 		}
 
 	}
-	
+
 	public void insert_EmergencyHospital(List<EmergencyHospital> list) {
 
 		String queryString = "insert into EmergencyHospital(name,address_for_display,address_for_system,telephone"
@@ -588,98 +685,283 @@ public void insert_ParkWaterStation(List<ParkWaterStation> list) {
 		}
 	}
 
-	
-	
-	public LinkedList<Village> select_Village(String query_section){
-		
-		LinkedList<Village> list=new LinkedList<Village>();
-		
-		String queryString = "select * from Village where section='"+query_section+"'";
+	public LinkedList<Village> select_Village(String query_section) {
+
+		LinkedList<Village> list = new LinkedList<Village>();
+
+		String queryString = "select * from Village where section='"
+				+ query_section + "'";
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(queryString);
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
-				String name=resultSet.getString("name");
-				String section=resultSet.getString("section");
-				String polygon=resultSet.getString("polygon");
-				ArrayList<Double> lats=new ArrayList<Double>();
-				ArrayList<Double> lngs=new ArrayList<Double>();
+				String name = resultSet.getString("name");
+				String section = resultSet.getString("section");
+				String polygon = resultSet.getString("polygon");
 				
-				for(String temp:polygon.split(" ")){
-					String[] latlng=temp.split(",");
-					//System.out.println(latlng[0]);
+				ArrayList<Double> lats = new ArrayList<Double>();
+				ArrayList<Double> lngs = new ArrayList<Double>();
+
+				for (String temp : polygon.split(" ")) {
+					String[] latlng = temp.split(",");
+					// System.out.println(latlng[0]);
 					lats.add(Double.parseDouble(latlng[0]));
 					lngs.add(Double.parseDouble(latlng[1]));
-					
+
 				}
-				
-				list.add(new Village(id,name, section,lats, lngs));
+
+				list.add(new Village(id, name, section, lats, lngs,resultSet.getString("json_polygon")));
 			}
-			
+
 			return list;
-			
+
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
 		} finally {
-			//Close();
+			// Close();
 		}
 		return list;
 	}
-	
-	
+
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
-	
-	public LinkedList<IllegalConstruction> select_IllegalConstruction(String section){
-		
-		LinkedList<IllegalConstruction> list=new LinkedList<IllegalConstruction>();
-		
-		String queryString = "select * from IllegalConstruction where section='"+section+"'";
+
+	public LinkedList<IllegalConstruction> select_IllegalConstruction(
+			String section) {
+
+		LinkedList<IllegalConstruction> list = new LinkedList<IllegalConstruction>();
+
+		String queryString = "select * from IllegalConstruction where section='"
+				+ section + "'";
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(queryString);
-			
+
 			while (resultSet.next()) {
-				//System.out.println(resultSet.getBigDecimal("lat"));
-				
-				list.add(new IllegalConstruction(resultSet.getInt("id")
-						, resultSet.getBigDecimal("lat"), resultSet.getBigDecimal("lng")));
+				// System.out.println(resultSet.getString("lat"));
+
+				list.add(new IllegalConstruction(resultSet.getInt("id"),
+						resultSet.getBigDecimal("lat"), resultSet
+								.getBigDecimal("lng")));
 			}
-			
+
 			return list;
 
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
 		} finally {
-			//Close();
+			// Close();
+		}
+		return list;
+	}
+
+	public LinkedList<FireDepartment> select_FireDepartment(String section) {
+
+		LinkedList<FireDepartment> list = new LinkedList<FireDepartment>();
+
+		String queryString = "select * from FireDepartment where address like '%"
+				+ section + "%'";
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new FireDepartment(resultSet.getInt("id"), resultSet
+						.getString("name"), resultSet.getBigDecimal("lat"),
+						resultSet.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+		return list;
+	}
+
+	public LinkedList<EmergencyHospital> select_EmergencyHospital(String section) {
+
+		LinkedList<EmergencyHospital> list = new LinkedList<EmergencyHospital>();
+
+		String queryString = "select * from EmergencyHospital where address_for_display like '%"
+				+ section + "%'";
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new EmergencyHospital(resultSet.getInt("id"),
+						resultSet.getString("name"), resultSet
+								.getString("address_for_display"), resultSet
+								.getString("hospital_evaluation"), resultSet
+								.getString("teaching_hospital_evaluation"),
+						resultSet.getString("category"), resultSet
+								.getBigDecimal("lat"), resultSet
+								.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+		return list;
+	}
+
+	public LinkedList<LevelDifficultyOfFireRescue> select_LevelDifficultyOfFireRescue(
+			String section) {
+
+		LinkedList<LevelDifficultyOfFireRescue> list = new LinkedList<LevelDifficultyOfFireRescue>();
+
+		String queryString = "select * from LevelDifficultyOfFireRescue where section = '"
+				+ section + "'";
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new LevelDifficultyOfFireRescue(
+						resultSet.getInt("id"), resultSet.getInt("level"),
+						resultSet.getInt("item"), resultSet
+								.getString("section"), resultSet
+								.getString("address"), resultSet
+								.getString("name"), resultSet
+								.getBoolean("hasAisle"), resultSet
+								.getBigDecimal("lat"), resultSet
+								.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+		return list;
+	}
+
+	public LinkedList<NarrowRoadway> select_NarrowRoadway(String section) {
+
+		LinkedList<NarrowRoadway> list = new LinkedList<NarrowRoadway>();
+
+		String queryString = "select * from NarrowRoadway where section = '"
+				+ section + "'";
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new NarrowRoadway(resultSet.getInt("id"), resultSet
+						.getString("section"), resultSet.getString("team"),
+						resultSet.getString("roadway"), resultSet
+								.getFloat("width"), resultSet
+								.getBigDecimal("lat"), resultSet
+								.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
+		}
+		return list;
+	}
+
+	public LinkedList<SeriousFailureLocation> select_SeriousFailureLocation(
+			String section) {
+
+		LinkedList<SeriousFailureLocation> list = new LinkedList<SeriousFailureLocation>();
+
+		String queryString = "select * from SeriousFailureLocation where address like '%"
+				+ section + "%'";
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new SeriousFailureLocation(resultSet.getInt("id"),
+						resultSet.getString("name"), resultSet
+								.getString("address"), resultSet
+								.getString("checkResult"), resultSet
+								.getBigDecimal("lat"), resultSet
+								.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
 		}
 		return list;
 	}
 	
-	public LinkedList<FireDepartment> select_FireDepartment(String section){
+	
+	public LinkedList<FireCount> select_FireCount(String section) {
+
+		LinkedList<FireCount> list = new LinkedList<FireCount>();
+
+		String queryString = "select * from FireCount where section ='"+ section + "'";
 		
-		LinkedList<FireDepartment> list=new LinkedList<FireDepartment>();
-		
-		String queryString = "select * from FireDepartment where address like '%"+section+"%'";
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(queryString);
-			
+
 			while (resultSet.next()) {
-				
-				list.add(new FireDepartment(resultSet.getInt("id"),resultSet.getString("name")
-						, resultSet.getBigDecimal("lat"), resultSet.getBigDecimal("lng")));
+
+				list.add(new FireCount(resultSet.getInt("id"), resultSet.getString("section")
+						, resultSet.getInt("count"), resultSet.getDate("date")));
 			}
-			
+
 			return list;
 
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
 		} finally {
-			//Close();
+			// Close();
+		}
+		return list;
+	}
+	
+	
+	public LinkedList<Hydrant> select_Hydrant() {
+
+		LinkedList<Hydrant> list = new LinkedList<Hydrant>();
+
+		String queryString = "select * from Hydrant ";
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(queryString);
+
+			while (resultSet.next()) {
+
+				list.add(new Hydrant(resultSet.getInt("id"), resultSet.getBigDecimal("lat")
+						, resultSet.getBigDecimal("lng")));
+			}
+
+			return list;
+
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			// Close();
 		}
 		return list;
 	}

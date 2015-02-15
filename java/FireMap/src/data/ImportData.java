@@ -17,12 +17,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.xml.sax.SAXException;
 
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -34,6 +39,7 @@ import com.google.code.geocoder.model.LatLng;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
+import utils.ReadXMLFileUsingSaxparser;
 import utils.util;
 
 public class ImportData {
@@ -42,9 +48,8 @@ public class ImportData {
 
 	public ImportData() {
 
-		sql = new SQLServer();
 	}
-	
+
 	/**
 	 * Capture 防災公園緊急維生取水站.csv and insert SQL Server
 	 * 
@@ -54,11 +59,11 @@ public class ImportData {
 		BufferedReader br = null;
 		FileInputStream fin = null;
 		List<ParkWaterStation> list = new LinkedList<ParkWaterStation>();
-		
+
 		try {
 			fin = new FileInputStream(new File(path));
 			br = new BufferedReader(new InputStreamReader(fin, "BIG5"));
-			
+
 			while (br.ready()) {
 				String line = br.readLine();
 				System.out.println(line);
@@ -68,17 +73,19 @@ public class ImportData {
 					String name = temp[1];
 					String addr = temp[2];
 					String note = temp[3];
-					LatLng latLng=queryAddressToLatlng("台北市 "+name);
-					
-					list.add(new ParkWaterStation(sec, name, addr, note, latLng.getLat(),latLng.getLng()));
-					
+					LatLng latLng = queryAddressToLatlng("台北市 " + name);
+
+					list.add(new ParkWaterStation(sec, name, addr, note, latLng
+							.getLat(), latLng.getLng()));
+
 				} else
 					continue;
 
 				System.out.flush();
 			}
 			
-			sql.insert_ParkWaterStation(list);
+			sql = new SQLServer();
+			//sql.insert_ParkWaterStation(list);
 			br.close();
 
 		} catch (FileNotFoundException e) {
@@ -91,8 +98,6 @@ public class ImportData {
 
 		}
 	}
-	
-	
 
 	/**
 	 * Capture 臺北市政府消防局各分隊座標位置.csv and insert SQL Server
@@ -102,11 +107,11 @@ public class ImportData {
 		BufferedReader br = null;
 		FileInputStream fin = null;
 		List<FireDepartment> list = new LinkedList<FireDepartment>();
-		
+
 		try {
 			fin = new FileInputStream(new File(path));
 			br = new BufferedReader(new InputStreamReader(fin, "BIG5"));
-			
+
 			while (br.ready()) {
 				String line = br.readLine();
 				System.out.println(line);
@@ -115,14 +120,16 @@ public class ImportData {
 					String name = temp[0];
 					float TWD67_X = Float.parseFloat(temp[1]);
 					float TWD67_Y = Float.parseFloat(temp[2]);
-			
-					String latlng[]=TWD67_To_WGS84(TWD67_X,TWD67_Y).split(",");
-					BigDecimal lat=new BigDecimal(latlng[1]);
-					BigDecimal lng=new BigDecimal(latlng[0]);
-					
-					System.out.println(lat+","+lng);
-					
-					list.add(new FireDepartment(name, TWD67_X, TWD67_X, lat, lng,queryLatlngToAddress(lat, lng)));
+
+					String latlng[] = TWD67_To_WGS84(TWD67_X, TWD67_Y).split(
+							",");
+					BigDecimal lat = new BigDecimal(latlng[1]);
+					BigDecimal lng = new BigDecimal(latlng[0]);
+
+					System.out.println(lat + "," + lng);
+
+					list.add(new FireDepartment(name, TWD67_X, TWD67_X, lat,
+							lng, queryLatlngToAddress(lat, lng)));
 					try {
 						Thread.sleep(3000);
 					} catch (InterruptedException e) {
@@ -135,7 +142,7 @@ public class ImportData {
 
 				System.out.flush();
 			}
-			
+
 			sql.insert_FireDepartment(list);
 			br.close();
 
@@ -149,7 +156,6 @@ public class ImportData {
 
 		}
 	}
-
 
 	/**
 	 * Capture 屋頂違建隔出3個使用單元以上.csv and insert SQL Server
@@ -178,18 +184,25 @@ public class ImportData {
 					String sec = temp[4];
 					String addr = temp[5];
 					float area = Float.parseFloat(temp[6]);
-					
-					String query_addr=addr.replaceAll("(.*號).*", "台北市$1");
-					//System.out.println(query_addr);
-					
+
+					String query_addr = addr.replaceAll("(.*號).*", "台北市$1");
+					// System.out.println(query_addr);
+
 					LatLng latLng = queryAddressToLatlng(query_addr);
 
-					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 					new util();
 					list.add(new IllegalConstruction(sec, addr, area, util
 							.strToDatetime(yy + "-" + mm + "-" + dd
-									+ " 00:00:00"),latLng.getLat(),latLng.getLng()));
-		
+									+ " 00:00:00"), latLng.getLat(), latLng
+							.getLng()));
+
 				} else
 					continue;
 
@@ -216,19 +229,16 @@ public class ImportData {
 	 * 
 	 */
 	public void load_NarrowRoadwayTable(String path) {
+
 		FileInputStream file = null;
 		HSSFWorkbook workbook = null;
 		HSSFSheet sheet = null;
 		List<NarrowRoadway> list = new LinkedList<NarrowRoadway>();
+		int currentSheet = 0;
 
 		try {
 			file = new FileInputStream(new File(path));
-
-			// Get the workbook instance for XLS file
 			workbook = new HSSFWorkbook(file);
-
-			// Get first sheet from the workbook
-			sheet = workbook.getSheetAt(0);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -238,53 +248,76 @@ public class ImportData {
 			e.printStackTrace();
 		}
 
-		// Get iterator to all the rows in current sheet
-		Iterator<Row> rowIterator = sheet.iterator();
+		while (currentSheet < 3) {
+			sheet = workbook.getSheetAt(currentSheet);
+			// Get iterator to all the rows in current sheet
+			Iterator<Row> rowIterator = sheet.iterator();
 
-		while (rowIterator.hasNext()) {
-			Row row = rowIterator.next();
-			if (!row.getCell(0).toString().contains("編號")
-					&& !row.getCell(0).toString().contains("臺北市搶救不易")) {
-				String sec = row.getCell(1).getStringCellValue();
-				String team = row.getCell(2).getStringCellValue();
-				String roadway = row.getCell(3).getStringCellValue();
-				float width = Float.parseFloat(row.getCell(4).toString());
-				String str= row.getCell(6).getStringCellValue();
-				
-				str=str.replaceAll("paths:(.|\n)*\\],(.|\n)*\\[(.*)", "$3");
-				str=str.replaceAll("\\]\\]\\}\\);","");
-				
-				String polygon="[";
-				
-				String[] splitString=str.split(",\n");
-				
-				for(int i=0;i<splitString.length;i++){
-					if(i==splitString.length-1)
-						polygon+=splitString[i].replaceAll("new google.maps.LatLng\\((.*), (.*)\\)", "{\"lat\":$1,\"lng\":$2}]");
+			while (rowIterator.hasNext()) {
+				Row row = rowIterator.next();
+				if (!row.getCell(0).toString().contains("編號")
+						&& !row.getCell(0).toString().contains("臺北市搶救不易")) {
+					String sec = row.getCell(1).getStringCellValue();
+					String team = row.getCell(2).getStringCellValue();
+					String roadway = row.getCell(3).getStringCellValue();
+					float width = Float.parseFloat(row.getCell(4).toString());
+					String str = null;
+					if(currentSheet==2)
+						 str = row.getCell(7).getStringCellValue();
 					else
-						polygon+=splitString[i].replaceAll("new google.maps.LatLng\\((.*), (.*)\\)", "{\"lat\":$1,\"lng\":$2},");
+						str = row.getCell(6).getStringCellValue();
 					
-				}
+					str = str.replaceAll("paths:(.|\n)*\\],(.|\n)*\\[(.*)",
+							"$3");
+					str = str.replaceAll("\\]\\]\\}\\);", "");
 
-				System.out.println(polygon);
-				System.out.println("============================");
-				
-				
-				LatLng latLng= queryAddressToLatlng("台北市 "+roadway);
-				list.add(new NarrowRoadway(sec, team, roadway, width,latLng.getLat(),latLng.getLng(),polygon));
-				
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-			} else
-				continue;
+					String polygon = "[";
+
+					String[] splitString = str.split(",\n");
+
+					for (int i = 0; i < splitString.length; i++) {
+						if (i == splitString.length - 1)
+							polygon += splitString[i].replaceAll(
+									"new google.maps.LatLng\\((.*), (.*)\\)",
+									"{\"lat\":$1,\"lng\":$2}]");
+						else
+							polygon += splitString[i].replaceAll(
+									"new google.maps.LatLng\\((.*), (.*)\\)",
+									"{\"lat\":$1,\"lng\":$2},");
+
+					}
+
+					System.out.println(polygon);
+					System.out.println("============================");
+
+					LatLng latLng = queryAddressToLatlng("台北市 " + roadway);
+
+					String level = null;
+
+					if (currentSheet == 0)
+						level = "red";
+					else if (currentSheet == 1)
+						level = "yellow";
+					else if (currentSheet == 2)
+						level = "blue";
+
+					list.add(new NarrowRoadway(sec, team, roadway, width,
+							level, latLng.getLat(), latLng.getLng(), polygon));
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else
+					continue;
+			}
+			currentSheet++;
 		}
 
+		sql = new SQLServer();
 		sql.insert_NarrowRoadway(list);
 		sql.close();
 
@@ -324,7 +357,7 @@ public class ImportData {
 						String addr = element.child(1).text();
 						String check = element.child(2).text();
 						String dateString = element.child(3).text();
-						LatLng latLng=queryAddressToLatlng(addr);
+						LatLng latLng = queryAddressToLatlng(addr);
 
 						int yy = Integer.parseInt((String) dateString
 								.subSequence(0, 3));
@@ -336,7 +369,7 @@ public class ImportData {
 								+ dateString.substring(5, 7) + " 00:00:00");
 
 						list.add(new SeriousFailureLocation(name, addr, check,
-								date,latLng.getLat(),latLng.getLng()));
+								date, latLng.getLat(), latLng.getLng()));
 					} else
 						continue;
 				} else
@@ -351,10 +384,6 @@ public class ImportData {
 		sql.close();
 
 	}
-
-	
-
-	
 
 	/**
 	 * Capture 一、二級火災搶救困難地區.xls and insert SQL Server
@@ -419,23 +448,23 @@ public class ImportData {
 
 			} catch (NullPointerException n) {
 				hasAisle = false;
-			} 
-				
+			}
+
 			System.out.println(level + " " + item + " " + sec + " " + addr
-						+ " " + name + " " + hasAisle);
-				
-			LatLng latLng = queryAddressToLatlng("台北市 "+addr);
-				
-			list.add(new LevelDifficultyOfFireRescue(level, item, sec,
-					addr, name, hasAisle,latLng.getLat(),latLng.getLng()));
-			
+					+ " " + name + " " + hasAisle);
+
+			LatLng latLng = queryAddressToLatlng("台北市 " + addr);
+
+			list.add(new LevelDifficultyOfFireRescue(level, item, sec, addr,
+					name, hasAisle, latLng.getLat(), latLng.getLng()));
+
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		sql.insert_LevelDifficultyOfFireRescue(list);
@@ -520,14 +549,15 @@ public class ImportData {
 	/**
 	 * Capture 臺北市急救責任醫院.xls and insert SQL Server
 	 * 
-	 * @param path 檔案路徑
+	 * @param path
+	 *            檔案路徑
 	 * 
 	 */
 	public void load_EmergencyHospital(String path) {
 
 		BufferedReader br = null;
 		FileInputStream fin = null;
-		
+
 		List<EmergencyHospital> list = new LinkedList<EmergencyHospital>();
 
 		try {
@@ -547,12 +577,11 @@ public class ImportData {
 					String hospital_eval = temp[4];
 					String tech_hospital_eval = temp[5];
 					String category = temp[6];
-					LatLng latLng=queryAddressToLatlng(addr_sys);
-					
-					
+					LatLng latLng = queryAddressToLatlng(addr_sys);
+
 					list.add(new EmergencyHospital(name, addr_dis, addr_sys,
 							telephone, hospital_eval, tech_hospital_eval,
-							category,latLng.getLat(),latLng.getLng()));
+							category, latLng.getLat(), latLng.getLng()));
 				} else
 					continue;
 
@@ -569,75 +598,102 @@ public class ImportData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//sql.close();
+			// sql.close();
 		}
 
 	}
-	
-	
+
 	/**
 	 * Capture 臺北市里界圖.kml and insert SQL Server
 	 * 
-	 * @param path 檔案路徑
+	 * @param path
+	 *            檔案路徑
 	 * 
 	 * 
 	 */
 	public void load_Village(String path) {
 
-		org.dom4j.Document document=null;
+		org.dom4j.Document document = null;
 		SAXReader reader = new SAXReader();
 		LinkedList<Village> list = new LinkedList<Village>();
-		
+
 		try {
 			document = reader.read(new File(path));
-			
-			for(Element element:(List<Element>)document.selectNodes("kml/Document/Placemark")){
-				
+
+			for (Element element : (List<Element>) document
+					.selectNodes("kml/Document/Placemark")) {
+
 				String name = element.selectSingleNode("name").getText();
-				String description=element.selectSingleNode("description").getText();
-				String section=description.replaceAll(".*區名</td><td>(.*)區.*", "$1區");
-				String area=description.replaceAll(".*面積</td><td>([\\d|.]*).*","$1");
-				LinkedList<HashMap<String, BigDecimal>> poly=new LinkedList<HashMap<String,BigDecimal>>();
-				
+				String description = element.selectSingleNode("description")
+						.getText();
+				String section = description.replaceAll(".*區名</td><td>(.*)區.*",
+						"$1區");
+				String area = description.replaceAll(
+						".*面積</td><td>([\\d|.]*).*", "$1");
+				LinkedList<HashMap<String, BigDecimal>> poly = new LinkedList<HashMap<String, BigDecimal>>();
+
 				System.out.println(area);
-				String coordinates=element.selectSingleNode("Polygon/outerBoundaryIs/LinearRing/coordinates").getText();
-				
-				coordinates=coordinates.replaceAll("\\s*", "");
-				for(String latlng:coordinates.split(",0")){
-					
-					String[] temp=latlng.split(",");
-					
-					HashMap<String, BigDecimal> map=new HashMap<String, BigDecimal>();
-					
+				String coordinates = element.selectSingleNode(
+						"Polygon/outerBoundaryIs/LinearRing/coordinates")
+						.getText();
+
+				coordinates = coordinates.replaceAll("\\s*", "");
+				for (String latlng : coordinates.split(",0")) {
+
+					String[] temp = latlng.split(",");
+
+					HashMap<String, BigDecimal> map = new HashMap<String, BigDecimal>();
+
 					map.put("lat", new BigDecimal(temp[1]));
 					map.put("lng", new BigDecimal(temp[0]));
-					
+
 					poly.add(map);
 				}
-					
+
 				list.add(new Village(name, section, area, poly));
-				
+
 				System.out.println("============================");
-				
+
 			}
 			sql.insert_Village(list);
 			sql.close();
-			
+
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	
-	public String TWD67_To_WGS84(float TWD67_X,float TWD67_Y){
-		
-		String urlString="http://map.happyman.idv.tw/~happyman/index/proj.php?go=1&api=0&q=1&x="
-				+TWD67_X
-				+"&y="
-				+TWD67_Y;
-		
+
+	public void load_Hydrant(String path) {
+
+		SAXParserFactory spfac = SAXParserFactory.newInstance();
+		ReadXMLFileUsingSaxparser handler = new ReadXMLFileUsingSaxparser();
+		SAXParser sp;
+
+		try {
+			sp = spfac.newSAXParser();
+
+			sp.parse(new File(path), handler);
+
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		handler.readList();
+
+		sql = new SQLServer();
+
+		sql.insert_Hydrant(handler.getHydrantList());
+
+	}
+
+	public String TWD67_To_WGS84(float TWD67_X, float TWD67_Y) {
+
+		String urlString = "http://map.happyman.idv.tw/~happyman/index/proj.php?go=1&api=0&q=1&x="
+				+ TWD67_X + "&y=" + TWD67_Y;
+
 		Document document = null;
 		try {
 			document = Jsoup.connect(urlString).get();
@@ -645,22 +701,20 @@ public class ImportData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return document.select("b").get(0).text();
-		
-	}
-	
 
-	
-	public String queryLatlngToAddress(BigDecimal lat,BigDecimal lng){
-	
+		return document.select("b").get(0).text();
+
+	}
+
+	public String queryLatlngToAddress(BigDecimal lat, BigDecimal lng) {
+
 		Geocoder geocoder = new Geocoder();
 		GeocoderRequest geocoderRequest = null;
 		GeocodeResponse geocoderResponse = null;
-	
+
 		geocoderRequest = new GeocoderRequestBuilder()
-				.setLocation(new LatLng(lat, lng))
-				.setLanguage("zh-TW").getGeocoderRequest();
+				.setLocation(new LatLng(lat, lng)).setLanguage("zh-TW")
+				.getGeocoderRequest();
 
 		try {
 			geocoderResponse = geocoder.geocode(geocoderRequest);
@@ -669,18 +723,19 @@ public class ImportData {
 			e.printStackTrace();
 		}
 		String address = null;
-		try{
-			address = geocoderResponse.getResults().get(0).getFormattedAddress();
+		try {
+			address = geocoderResponse.getResults().get(0)
+					.getFormattedAddress();
 			System.out.println(address);
 			return address;
-	
-		}catch(java.lang.IndexOutOfBoundsException e){
-			System.out.println("address not find");;
+
+		} catch (java.lang.IndexOutOfBoundsException e) {
+			System.out.println("address not find");
+			;
 			return null;
 		}
 	}
-	
-	
+
 	private LatLng queryAddressToLatlng(String address) {
 
 		Geocoder geocoder = new Geocoder();
@@ -700,25 +755,43 @@ public class ImportData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(geocoderResponse.getStatus().value().equals("OK")){
+
+		if (geocoderResponse.getStatus().value().equals("OK")) {
 			for (GeocoderResult result : geocoderResponse.getResults()) {
 				lat = result.getGeometry().getLocation().getLat();
 				lng = result.getGeometry().getLocation().getLng();
 				System.out.println(lat + "," + lng);
 				return result.getGeometry().getLocation();
 			}
-		}
-		else
+		} else
 			return latLng;
 
 		return latLng;
 	}
 
-	
 	public static void main(String[] args) throws MalformedURLException {
 		// TODO Auto-generated method stub
-		
+
+		ImportData importData = new ImportData();
+
+		importData.load_ParkWaterStation("D:\\消防\\防災公園緊急維生取水站.csv");//完成上半部
+
+		// -------------------------finish---------------------------------------------
+
+		// importData.load_IllegalConstructionTable("D:\\消防\\「屋頂違建隔出3個使用單元以上」清冊.csv");
+		// importData.load_EmergencyHospital("D:\\消防\\臺北市急救責任醫院.csv");
+		// importData.load_Village("D:\\消防\\臺北市里界圖.xml");
+		// importData.load_FireDepartment("D:\\消防\\臺北市政府消防局各分隊座標位置.csv");
+		// importData.load_LevelDifficultyOfFireRescue("D:\\消防\\一、二級火災搶救困難地區.xls");
+		//importData.load_NarrowRoadwayTable("D:\\消防\\臺北市搶救不易狹小巷道清冊(改).xls");
+		// importData.load_SeriousFailureLocation();//重大不安全場所
+		// importData.load_FireCount();//臺北市火災次數分類及時間
+
+		// -------------------------bug--------------------------------------------
+
+		// Cannot insert the value NULL into column 'lat', table
+		// 'dmlab.dbo.Hydrant'; column does not allow nulls. INSERT fails.
+		// importData.load_Hydrant("D:\\消防\\大臺北地區消防栓分布點位圖.kml");
 	}
 
 }

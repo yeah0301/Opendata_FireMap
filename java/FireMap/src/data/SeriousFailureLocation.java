@@ -16,12 +16,23 @@ public class SeriousFailureLocation {
 	private Date date;
 	private BigDecimal lat;
 	private BigDecimal lng;
+	private int id;
+
 	
 	public SeriousFailureLocation(String name,String addr,String check,Date date,BigDecimal lat,BigDecimal lng){
 		this.name=name;
 		this.address=addr;
 		this.checkResult=check;
 		this.date=date;
+		this.lat=lat;
+		this.lng=lng;
+	}
+	
+	public SeriousFailureLocation(int id,String name,String addr,String check,BigDecimal lat,BigDecimal lng){
+		this.id=id;
+		this.name=name;
+		this.address=addr;
+		this.checkResult=check;
 		this.lat=lat;
 		this.lng=lng;
 	}
