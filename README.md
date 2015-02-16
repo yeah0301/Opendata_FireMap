@@ -17,10 +17,10 @@ APP:<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_j
 
 因此，本系統提供以下功能：
 
-  *GIS 火災應變資訊圖層
-  *GIS 火災應變資訊熱力圖
-  *行政區、里別區域 - 火災應變能力評估
-  *API服務 - KML及JSON下載
+  - GIS 火災應變資訊圖層
+  - GIS 火災應變資訊熱力圖
+  - 行政區、里別區域 - 火災應變能力評估
+  - API服務 - KML及JSON下載
 
 ------------------------------------------------------------------------------
 Prototype連結：https://drive.google.com/file/d/0B_zzOKvrcEq_RHM4Znlwd2tpQzg/view?usp=sharing
