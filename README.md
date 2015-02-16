@@ -3,7 +3,7 @@
 ===========================================================================
 #Demo
 website: http://firemaptest.azurewebsites.net/index.php<br>
-APK:<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_jM7CdKsCRcVKzKXssd2UMC1DeI4O-oLBreasQmpd8gV4=w1338-h528' alt='#' width:'50%'/>
+APK:<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_jM7CdKsCRcVKzKXssd2UMC1DeI4O-oLBreasQmpd8gV4=w1338-h528' alt='#' width:'135' height='135'/>
 
 ============================================================================
 #Synopsis
