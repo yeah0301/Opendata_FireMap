@@ -22,11 +22,29 @@ APP:<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_j
   - 行政區、里別區域 - 火災應變能力評估
   - API服務 - KML及JSON下載
 
-------------------------------------------------------------------------------
-Prototype連結：https://drive.google.com/file/d/0B_zzOKvrcEq_RHM4Znlwd2tpQzg/view?usp=sharing
+
+#####Prototype連結
+  https://drive.google.com/file/d/0B_zzOKvrcEq_RHM4Znlwd2tpQzg/view?usp=sharing
 
 =============================================================================
 ##API Reference
+
+使用者可藉由介接、下載JSON檔及KML三種方式取得OpenData
+
+提供資料如下：
+
+  - 臺北市急救責任醫院
+  - 臺北市搶救不易狹小巷道清冊
+  - 一、二級火災搶救困難地區
+  - 「屋頂違建隔出3個使用單元以上」清冊
+  - 重大不合格場所
+  - 火災發生次數
+  - 臺北市里界圖
+  - 臺北地區消防栓分布點位
+  - 臺北市政府消防局各分隊座標位置
+
+
+
 連結：http://firemaptest.azurewebsites.net/api_page.php
 
 
