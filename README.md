@@ -31,7 +31,7 @@ APP:<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_j
 
 使用者可藉由介接、下載JSON檔及KML三種方式取得OpenData
 
-提供資料如下：
+本系統提供資料如下：
 
   - 臺北市急救責任醫院
   - 臺北市搶救不易狹小巷道清冊
