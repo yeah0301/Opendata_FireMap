@@ -5,13 +5,13 @@
 
 ####系統預覽圖
 
-<img src='https://lh6.googleusercontent.com/hVtLu-BHCVq6vP3zXWlP7IKC7zNt2H6H9J9I7l0veIdZCugZ3Pa4A9GEwI4UTFhsGEslNTvGn2w=w1338-h572'  alt='#' width:'674' height='347'/>
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/preview.PNG'  alt='#' width:'674' height='347'/>
 
 ####API介面
-<img src='https://lh3.googleusercontent.com/edY1qrUcxbJRmPQcCYozpko_EReBfp5-a1Pz775gbXLQPZsbhqa-stdN5LGHI-fmnf_rWYJJbvk=w1338-h572'  alt='#' width:'674' height='347'/>
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/apipreview.PNG'  alt='#' width:'674' height='347'/>
 
 ####APP
-<img src='https://lh6.googleusercontent.com/BpPizodl3Cm5wsUPWxjKSZhuK_2_NB_jM7CdKsCRcVKzKXssd2UMC1DeI4O-oLBreasQmpd8gV4=w1338-h528' alt='#' width:'135' height='135'/>
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/barcode_firemap.png' alt='#' width:'135' height='135'/>
 
 ============================================================================
 ##Synopsis
@@ -30,7 +30,7 @@
 
 ####系統流程圖
 
-<img src='https://lh5.googleusercontent.com/Dm2NmKdtDTn1Y-1menmVT-9FnXdkspRFO2oN3Etww84rP5CyKGJKQZf7vyrGXulJIJMV595I15E=w1338-h528' alt='#' width:'469.5' height='350'/>
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/flow.jpg' alt='#' width:'469.5' height='350'/>
 
 
 ####Prototype連結
