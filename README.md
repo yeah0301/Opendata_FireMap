@@ -1,7 +1,7 @@
 # 守護台灣OpenData FireMap
 
 ##Demo
-> Website: http://dmlabwebsite.azurewebsites.net/firemaptest/index.php<br>
+> Website: http://firemaptest.azurewebsites.net/index.php<br>
 
 ####系統預覽圖
 
