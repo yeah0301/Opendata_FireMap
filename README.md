@@ -54,8 +54,7 @@
   - 臺北市政府消防局各分隊座標位置
 
 
-
-連結：http://dmlabwebsite.azurewebsites.net/firemaptest/api_page.php
+連結：http://firemaptest.azurewebsites.net/api_page.php
 
 =============================================================================
 ##License
