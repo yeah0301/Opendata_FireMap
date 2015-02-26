@@ -55,7 +55,7 @@
 
 
 
-連結：http://firemaptest.azurewebsites.net/api_page.php
+連結：http://dmlabwebsite.azurewebsites.net/firemaptest/api_page.php
 
 =============================================================================
 ##License
