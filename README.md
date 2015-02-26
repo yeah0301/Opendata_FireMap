@@ -11,7 +11,7 @@
 <img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/apipreview.PNG'  alt='#' width:'674' height='347'/>
 
 ####APP #建議使用QR Droid掃描
-<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/qrcode.png' alt='#' width:'135' height='135'/>
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/qrcode_new.png' alt='#' width:'135' height='135'/>
 
 ============================================================================
 ##Synopsis
