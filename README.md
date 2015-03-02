@@ -59,7 +59,7 @@
 ####METHOD: GET
 
   - 火災應變能力評估
-URL:
+  URL:
 ~~~~~~~
 {
 	"name":里名(string),
@@ -67,6 +67,97 @@ URL:
 	"score":經由多項因素整合的 火災應變能力評估 分數
 		正號表示分數高於平均，負號反之
 		分數越高表示該里 火災應變能力 越好(double)
+}
+~~~~~~~
+  - 臺北市急救責任醫院
+  URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"name"：醫院名稱(string),
+	"address":醫院所在地址(string),
+	"telephone":醫院電話(string),
+	"category":醫院等級分類，有區域醫院、地區醫院、醫學中心(string)
+}
+~~~~~~~
+  - 臺北市政府消防局各分隊座標位置
+ URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"name"：消防隊分隊名稱(string),
+	"address":消防隊所在地址(string)
+}
+~~~~~~~
+  - 臺北市搶救不易狹小巷道清冊
+  URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"roadway":搶救不易狹小巷道名稱(string),
+	"section":此巷道所在行政區(string)
+	"width":此巷道寬度(double),
+	"team":隸屬那個消防分隊管轄(string)
+}
+~~~~~~~
+  - 一、二級火災搶救困難地區
+URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"section":搶救困難地區所在行政區(string),
+	"address"::搶救困難地區所在地址(string),
+	"level":火災搶救困難等級(int),
+	"item":火災搶救困難評定項目(int),
+	"name":搶救困難地區名稱(string),
+	"hasAisle":是否有消防通道(bit)
+}
+~~~~~~~
+  - 「屋頂違建隔出3個使用單元以上」清冊
+  URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"section":屋頂違建所在行政區(string),
+	"address"::屋頂違建所在地址(string),
+	"area":屋頂違建面積(float),
+	"date":標示為違建日期(date)
+}
+~~~~~~~
+  - 重大不合格場所
+URL:
+~~~~~~~
+{
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"name":重大不合格場所名稱(string),
+	"address":重大不合格場所地址(string),
+	"checkResult":檢查結果(string),
+	"date":標示為重大不合格場所日期(date)
+}
+~~~~~~~
+  - 火災發生次數
+URL:
+~~~~~~~
+{
+	"section":火災發生地區(string),
+	"count":該月份火災發生次數(int),
+	"date":月份(date)
+}
+~~~~~~~
+  - 臺北市里界圖
+URL:
+~~~~~~~
+{
+	"name":里名(string),
+	"section":此里所在行政區(string),
+	"area":此里面積(double),
+	"polygon":WGS84緯度 WGS84經度 空白分格連續經緯度包圍此里(string)
 }
 ~~~~~~~
 
