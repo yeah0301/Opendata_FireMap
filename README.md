@@ -56,8 +56,10 @@
 
 連結：http://firemaptest.azurewebsites.net/api_page.php
 
-METHOD: GET
---------------------------------------------------------------------------
+####METHOD: GET
+
+  - 火災應變能力評估
+URL:
 ~~~~~~~
 {
 	"name":里名(string),
