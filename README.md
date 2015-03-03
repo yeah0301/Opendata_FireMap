@@ -59,7 +59,7 @@
 ####METHOD: GET
 
   - 火災應變能力評估
-  URL:
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=result
 ~~~~~~~
 {
 	"name":里名(string),
@@ -82,7 +82,7 @@
 }
 ~~~~~~~
   - 臺北市政府消防局各分隊座標位置
- URL:
+ URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=firedepartment
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -92,7 +92,7 @@
 }
 ~~~~~~~
   - 臺北市搶救不易狹小巷道清冊
-  URL:
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=narrowroadway
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -104,7 +104,7 @@
 }
 ~~~~~~~
   - 一、二級火災搶救困難地區
-URL:
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=difficulty
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -118,7 +118,7 @@ URL:
 }
 ~~~~~~~
   - 「屋頂違建隔出3個使用單元以上」清冊
-  URL:
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=illegal
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -130,7 +130,7 @@ URL:
 }
 ~~~~~~~
   - 重大不合格場所
-URL:
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=serious
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -142,7 +142,7 @@ URL:
 }
 ~~~~~~~
   - 火災發生次數
-URL:
+URL:	firecount
 ~~~~~~~
 {
 	"section":火災發生地區(string),
@@ -151,7 +151,7 @@ URL:
 }
 ~~~~~~~
   - 臺北市里界圖
-URL:
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=village
 ~~~~~~~
 {
 	"name":里名(string),
