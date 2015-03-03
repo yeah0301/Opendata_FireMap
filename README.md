@@ -70,7 +70,7 @@
 }
 ~~~~~~~
   - 臺北市急救責任醫院
-  URL:
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=hosiptal
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
