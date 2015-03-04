@@ -59,7 +59,7 @@
 ####METHOD: GET
 
   - 火災應變能力評估
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=result</br>
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=result<br>
 RETURN:
 ~~~~~~~
 {
@@ -70,8 +70,22 @@ RETURN:
 		分數越高表示該里 火災應變能力 越好(double)
 }
 ~~~~~~~
+  - 一鍵通報點位
+  URL:
+RETURN:
+~~~~~~~
+{
+	"datetime":通報上傳時間日期(date),
+	"pics":圖片路徑檔(string),
+	"lat":WGS84緯度(decimal),
+	"lng":WGS84經度(decimal),
+	"worker":發送人序號(string)
+	"eventid":事件序號(string),
+	"evnetDesc":事件描述(string)
+}
+~~~~~~~
   - 臺北市急救責任醫院
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=hosiptal</br>
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=hosiptal<br>
 RETURN:
 ~~~~~~~
 {
@@ -84,7 +98,8 @@ RETURN:
 }
 ~~~~~~~
   - 臺北市政府消防局各分隊座標位置
- URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=firedepartment
+ URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=firedepartment<br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -94,7 +109,8 @@ RETURN:
 }
 ~~~~~~~
   - 臺北市搶救不易狹小巷道清冊
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=narrowroadway
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=narrowroadway<br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -106,7 +122,8 @@ RETURN:
 }
 ~~~~~~~
   - 一、二級火災搶救困難地區
-URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=difficulty
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=difficulty<br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -120,7 +137,8 @@ URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=difficulty
 }
 ~~~~~~~
   - 「屋頂違建隔出3個使用單元以上」清冊
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=illegal
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=illegal<br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -132,7 +150,8 @@ URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=difficulty
 }
 ~~~~~~~
   - 重大不合格場所
-URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=serious
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=serious<br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
@@ -153,7 +172,8 @@ URL:	firecount
 }
 ~~~~~~~
   - 臺北市里界圖
-URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=village
+URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=village<br>
+RETURN:
 ~~~~~~~
 {
 	"name":里名(string),
