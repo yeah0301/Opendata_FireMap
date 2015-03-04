@@ -59,7 +59,8 @@
 ####METHOD: GET
 
   - 火災應變能力評估
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=result
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=result</br>
+RETURN:
 ~~~~~~~
 {
 	"name":里名(string),
@@ -70,7 +71,8 @@
 }
 ~~~~~~~
   - 臺北市急救責任醫院
-  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=hosiptal
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=hosiptal</br>
+RETURN:
 ~~~~~~~
 {
 	"lat":WGS84緯度(decimal),
