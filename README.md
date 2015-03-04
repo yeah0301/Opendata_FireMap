@@ -71,7 +71,7 @@ RETURN:
 }
 ~~~~~~~
   - 一鍵通報點位
-  URL:
+  URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=mobile_record<br>
 RETURN:
 ~~~~~~~
 {
