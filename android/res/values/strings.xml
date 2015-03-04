@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">啟動Firemap…</string>
+    <string name="app_name">Firemap</string>
+    <string name="page_title">Firemap</string>
+    <string name="copyright">\u00A9 2013 NCHU.DMLab</string>
+    <string name="entry">進入系統</string>
+    <string name="login_title">國立中興大學DMLab\nFiremap</string>
+    
+    <string name="word_near">GIS地理觀測鏡頭</string>
+    <string name="word_realrecord">Firemap 一鍵通報</string>
+    <string name="word_record">停止錄影</string>
+    <string name="word_nonrecord">開始錄影</string>
+    <string name="word_voice_record">停止錄音</string>
+    <string name="word_voice_nonrecord">開始錄音</string>
+    
+    <string name="word_ok">確定</string>
+    
+    <string name="toast_gps_error">無GPS服務，請開啟定位服務</string>
+    
+    <!-- dialog -->
+    <string name="word_dialog_loading">請稍會，處理中…</string>
+    <string name="word_dialog_title">資料擷取</string>
+    
+    <string name="imageDesc">listIcon</string>
+    
+
+    <string name="image_upload_url">http://firemaptest.azurewebsites.net/appservice/image_stream.php</string>
+    <string name="audio_upload_url">http://firemaptest.azurewebsites.net/appservice/audio_stream.php</string>
+    <string name="login_url"></string>
+</resources>

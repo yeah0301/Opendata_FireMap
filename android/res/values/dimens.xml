@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="page_title_size"> 15dp </dimen>
+    <dimen name="page_itemtitle_size"> 11dp </dimen>
+    <dimen name="page_copyright_size"> 10dp </dimen>
+    <dimen name="page_footer_margin"> 7dp </dimen>
+    <dimen name="page_header_margin"> 3dp </dimen>
+   
+    <!-- record -->
+    <dimen name="record_gpsText_size"> 14dp </dimen>
+    
+</resources>

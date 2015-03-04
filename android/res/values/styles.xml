@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="style_title">
+        <item name="android:textColor">#e0e0e0</item>
+    </style>
+    <style name="style_shadow">
+        <item name="android:textColor">#FFf0f0f0</item>
+        <item name="android:shadowColor">#FFE0E0E0</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+    <style name="style_list_text">
+        <item name="android:textColor">#707070</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/list_text_size</item>
+    </style>
+    <style name="style_record_button">
+        <item name="android:textColor">#FF165c92</item>
+        <item name="android:textSize">@dimen/record_btnText_size</item>
+		<!-- <item name="android:shadowColor">#FFE0E0E0</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item> -->
+    </style>
+    <style name="navbar_button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/navbar_backgroundselector</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/menu_font_size</item>
+    </style>
+
+</resources>

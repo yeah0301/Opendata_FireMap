@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_vertical"
+    android:keepScreenOn="true" >
+	<!-- header banner -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:background="@drawable/page_titlebg_gradient" >
+        <TextView
+            style="@style/style_shadow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="@dimen/page_header_margin"
+            android:text="@string/word_realrecord"
+            android:textSize="@dimen/page_title_size"
+            android:textStyle="bold" /> 
+    </LinearLayout>
+    <!-- END:header -->
+    
+	<RelativeLayout
+	    android:id="@+id/surfaceview_layout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@id/header_layout"
+	    android:layout_gravity="center_vertical" >
+
+	    <SurfaceView
+	        android:id="@+id/surfaceView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent" />
+
+	    <TextView
+	        android:id="@+id/record_gps_text"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:background="@android:color/transparent"
+	        android:text="GPS : not located"
+	        android:textColor="#FFFFFF"
+	        android:textSize="@dimen/record_gpsText_size" />
+
+	    <LinearLayout
+	        android:id="@+id/linearLayout1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_margin="@dimen/record_btn_bottom" >
+
+	        <ToggleButton
+	            android:id="@+id/btn_record"
+	            style="@style/style_record_button"
+	            android:layout_width="@dimen/record_btn_width"
+	            android:layout_height="@dimen/record_btn_height"
+	            android:background="@drawable/record_btn"
+	            android:drawableLeft="@android:drawable/ic_media_play"
+	            android:gravity="center_vertical|center_horizontal"
+	            android:textOff="@string/word_nonrecord"
+	            android:textOn="@string/word_record" />
+	    </LinearLayout>
+
+	    <ToggleButton
+	        android:id="@+id/btn_voice_record"
+	        style="@style/style_record_button"
+	        android:layout_width="@dimen/record_btn_width"
+	        android:layout_height="@dimen/record_btn_height"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignTop="@+id/linearLayout1"
+	        android:layout_marginLeft="25dp"
+	        android:background="@drawable/record_btn"
+	        android:drawableLeft="@android:drawable/ic_btn_speak_now"
+	        android:textOff="@string/word_voice_nonrecord"
+	        android:textOn="@string/word_voice_record" />
+	</RelativeLayout>
+</RelativeLayout>
