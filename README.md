@@ -70,7 +70,7 @@ RETURN:
 		分數越高表示該里 火災應變能力 越好(double)
 }
 ~~~~~~~
-  - 一鍵通報點位
+  - 一鍵通報點位資料
   URL:	http://firemaptest.azurewebsites.net/api_selectDB.php?data=mobile_record<br>
 RETURN:
 ~~~~~~~
