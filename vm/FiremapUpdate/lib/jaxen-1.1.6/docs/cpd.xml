@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="47" tokens="123">
+<file line="102" path="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/dom4j/DocumentNavigator.java"/>
+<file line="96" path="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/jdom/DocumentNavigator.java"/>
+<codefragment>
+<![CDATA[
+    private static class Singleton
+    {
+        /** Singleton instance.
+         */
+        private static DocumentNavigator instance = new DocumentNavigator();
+    }
+
+    public static Navigator getInstance()
+    {
+        return Singleton.instance;
+    }
+
+    public boolean isElement(Object obj)
+    {
+        return obj instanceof Element;
+    }
+
+    public boolean isComment(Object obj)
+    {
+        return obj instanceof Comment;
+    }
+
+    public boolean isText(Object obj)
+    {
+        return ( obj instanceof Text
+                 ||
+                 obj instanceof CDATA );
+    }
+
+    public boolean isAttribute(Object obj)
+    {
+        return obj instanceof Attribute;
+    }
+
+    public boolean isProcessingInstruction(Object obj)
+    {
+        return obj instanceof ProcessingInstruction;
+    }
+
+    public boolean isDocument(Object obj)
+    {
+        return obj instanceof Document;
+    }
+
+    public boolean isNamespace(Object obj)
+    {
+        return obj instanceof Namespace || obj instanceof XPathNamespace;
+]]>
+</codefragment>
+</duplication>
+<duplication lines="28" tokens="120">
+<file line="108" path="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/expr/DefaultEqualityExpr.java"/>
+<file line="97" path="/Volumes/Macintosh HD/Users/elharo/Projects/workspace/jaxen/src/java/main/org/jaxen/expr/DefaultRelationalExpr.java"/>
+<codefragment>
+<![CDATA[
+  private Object evaluateSetSet( List lhsSet, List rhsSet, Navigator nav )
+    {
+    if( setIsEmpty( lhsSet ) || setIsEmpty( rhsSet ) ) // return false if either is null or empty
+      {
+      return Boolean.FALSE;
+      }    
+    
+    for( Iterator lhsIterator = lhsSet.iterator(); lhsIterator.hasNext(); )
+      {
+      Object lhs = lhsIterator.next();        
+      
+      for( Iterator rhsIterator = rhsSet.iterator(); rhsIterator.hasNext(); )
+        {
+        Object rhs = rhsIterator.next();
+        
+        if( evaluateObjectObject( lhs, rhs, nav ) )
+          {
+          return Boolean.TRUE;
+          }
+        }
+      }      
+    
+    return Boolean.FALSE;
+    }
+  
+  private boolean evaluateObjectObject( Object lhs, Object rhs, Navigator nav )
+    {
+    if( lhs == null || rhs == null )
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>
