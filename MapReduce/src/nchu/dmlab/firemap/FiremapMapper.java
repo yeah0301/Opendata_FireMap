@@ -54,21 +54,35 @@ public class FiremapMapper extends Mapper<Object, Text, Text, LongWritable>{
       
       for(String villageID: villageID_map_latlng.keySet() ){
         Latlngs villageLatlng = villageID_map_latlng.get(villageID);
-        if(isContain(lat, lng, villageLatlng) ){
-          if( id.contains("firedepartment")){
-            outputKey.set(villageID);
+        outputKey.set(villageID);
+        if (isContain(lat, lng, villageLatlng)) {
+          if (id.contains("firedepartment")) {
             outputValue.set(CalculateConfig.FIRE_DEPARTMENT_WEIGHT);
             context.write(outputKey, outputValue);
-          } else if (id.contains("illegal")) {
-            outputKey.set(villageID);
+          }
+          if (id.contains("illegal")) {
             outputValue.set(CalculateConfig.ILLEGAL_CONSTRUCTION_WEIGHT);
             context.write(outputKey, outputValue);
-          } else if (id.contains("narrow")) {
-            outputKey.set(villageID);
+          }
+          if (id.contains("narrow")) {
             outputValue.set(CalculateConfig.NARROW_ROADWAY_WEIGHT);
             context.write(outputKey, outputValue);
           }
-          // else if contains other risk conditions
+          // if contains other risk conditions
+        } else {
+          double min_distance = minBoundDistance(lat, lng, villageLatlng);
+          if (id.contains("firedepartment") && min_distance <= CalculateConfig.FIRE_DEPARTMENT_LENGTH * CalculateConfig.LENGTH_TOLERANT) {
+            outputValue.set(CalculateConfig.FIRE_DEPARTMENT_WEIGHT);
+            context.write(outputKey, outputValue);
+          }
+          if (id.contains("illegal") && min_distance <= CalculateConfig.ILLEGAL_CONSTRUCTION_LENGTH * CalculateConfig.LENGTH_TOLERANT) {
+            outputValue.set(CalculateConfig.ILLEGAL_CONSTRUCTION_WEIGHT);
+            context.write(outputKey, outputValue);
+          }
+          if (id.contains("narrow") && min_distance <= CalculateConfig.NARROW_ROADWAY_LENGTH * CalculateConfig.LENGTH_TOLERANT) {
+            outputValue.set(CalculateConfig.NARROW_ROADWAY_WEIGHT);
+            context.write(outputKey, outputValue);
+          }
         }
       }
       // outputKey.set(id);
@@ -115,6 +129,21 @@ public class FiremapMapper extends Mapper<Object, Text, Text, LongWritable>{
     fr.close();
 
   }
+
+  // 計算點和polygon邊上所有點距離
+  public double minBoundDistance(double inputLat, double inputLng, Latlngs polygon_latlngs) {
+    double distance = 0.0;
+    double min_distance = 9999.0;
+    int i = 0;
+
+    while (i < polygon_latlngs.getLat().length) {
+      distance = Math.sqrt(Math.pow(polygon_latlngs.getLat()[i] - inputLat, 2) + Math.pow(polygon_latlngs.getLng()[i] - inputLng, 2));
+      min_distance = Math.min(min_distance, distance);
+      // System.out.println(min_distance);
+      i++;
+    }
+    return min_distance;
+  }
   //檢查點是否落在polygon
   public boolean isContain(double inputLat,double inputLng,Latlngs polygon_latlngs){
     DoublePolygon polygon = new DoublePolygon(polygon_latlngs.getLat(), polygon_latlngs.getLng());
@@ -124,7 +153,6 @@ public class FiremapMapper extends Mapper<Object, Text, Text, LongWritable>{
       return false;
   }
   public double[] StringToArray(String str){
-    
     String[] items = str.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
     double[] results = new double[items.length];
     int i=0;
@@ -133,13 +161,10 @@ public class FiremapMapper extends Mapper<Object, Text, Text, LongWritable>{
       results[i]=Double.parseDouble(item.trim());
       i++;
     }
-    
     return results;
   }
   public class Latlngs{
-    
     double[] lats,lngs;
-    
     public Latlngs(double[] lats,double[] lngs){
       this.lats=lats;
       this.lngs=lngs;
