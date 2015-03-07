@@ -190,6 +190,8 @@ RETURN:
 =============================================================================
 ##License
 
+source code 及 API釋出的部分 均遵循 Apache License v2 
+	http://www.apache.org/licenses/LICENSE-2.0
 
 
 
