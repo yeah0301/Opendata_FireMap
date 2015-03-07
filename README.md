@@ -13,6 +13,10 @@
 ####APP #建議使用QR Droid掃描
 <img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/barcode_firemap.png' alt='#' width:'135' height='135'/>
 
+####demo 投影片
+<img src='https://ed0f44ae43a4d55f8a982614f767043d121b66e6.googledrive.com/host/0B_zzOKvrcEq_VHR4ZUQ3SEJEWWc/20150306Demo.pptx' alt='#' width:'135' height='135'/>
+
+
 ============================================================================
 ##Synopsis
 ####風險揭露
